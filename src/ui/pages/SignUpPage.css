@@ -1,0 +1,97 @@
+.signup-page {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /*background-color: red;*/
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-image: url("../assets/backgrounds/login-funcard-bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.signup-page-content {
+    width: 50%;
+    min-width: 400px;
+    min-height: 600px;
+    height: max-content;
+    background: var(--fixed-element-color);
+    padding: 0 40px;
+    box-sizing: border-box;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 300px;
+}
+
+.signup-form > * {
+    margin-bottom: 10px;
+}
+
+.signup-input-section input:not(.teacher-signup input) {
+    outline: none;
+    border: none;
+    height: 36px;
+    width: 100%;
+}
+
+.signup-form button {
+    background-color: var(--tertiary-color);
+    outline: none;
+    border: 1px solid var(--secondary-color);
+    height: 36px;
+    width: 100%;
+}
+
+button:hover {
+    background-color: var(--fixed-element-color);
+}
+
+input:focus {
+    outline: none;
+    border: 1px solid var(--tertiary-color);
+}
+
+
+.signup-welcome {
+    margin-bottom: 16px;
+    margin-top: 0;
+    font-size: 0.8rem;
+}
+
+.to-signup {
+    margin-top: 40px;
+    color: var(--tertiary-color);
+    font-size: 0.8rem;
+}
+
+.to-signup:hover {
+    color: var(--secondary-color);
+}
+
+.names-signup {
+    display: flex;
+    align-items: center;
+}
+
+.names-signup > *:last-child {
+    margin-left: 10px;
+}
+
+.signup-input-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}

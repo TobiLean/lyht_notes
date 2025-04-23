@@ -1,0 +1,93 @@
+
+
+.notes-page {
+    position: relative;
+    top: 0;
+    box-sizing: border-box;
+    height: 100%;
+    width: 100%;
+    color: var(--text-light);
+}
+
+.note-editor-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.note-editor {
+    height: calc(100% - 68px);
+    max-height: 100%;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Styling the TipTap text area */
+
+.tiptap {
+    height: 100%;
+    width: 100%;
+    background-color: var(--background-dark);
+    padding: 4px 8px;
+    box-sizing: border-box;
+    /*border: 1px solid #000;*/
+    border-radius: 10px;
+}
+
+.tiptap:hover {
+    /*background-color: var(--background-light);*/
+}
+
+.tiptap:focus {
+    outline: none;
+}
+
+.note-menu-bar {
+    height: 36px;
+    max-width: 100%;
+    position: sticky;
+    top: 0;
+    background-color: #616161;
+    z-index: 10;
+    margin: 10px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    padding-left: 16px;
+}
+
+.note-menu-bar button, .note-menu-bar select {
+    margin-left: 4px;
+    background-color: var(--button-color);
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.note-menu-bar button:hover, .note-menu-bar select:hover {
+    background-color: var(--button-hover-color);
+}
+
+.toggled {
+    background-color: var(--tertiary-color) !important;
+}
+
+.save-status {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    font-size: 12px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.save-status:empty {
+    opacity: 0;
+}

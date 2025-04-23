@@ -1,0 +1,28 @@
+{
+  "appId": "com.tobilean.lyht_notes",
+  "productName": "lyht_notes",
+  "directories": {
+    "output": "release-builds"
+  },
+  "files": [
+    "dist-electron",
+    "dist-react"
+  ],
+  "extraResources": ["dist-electron/preload.cjs"],
+  "icon": "./icon.ico",
+  "mac": {
+    "target": "dmg"
+  },
+  "win": {
+
+    "target": [
+      "portable",
+      "msi",
+      "nsis"
+    ]
+  },
+  "linux": {
+    "target": "AppImage",
+    "category": "Utility"
+  }
+}
