@@ -10,6 +10,7 @@ import {HashRouter, Navigate, Route, Routes} from "react-router-dom";
 import './App.css'
 
 import supabaseClient from "../utils/supabaseClient.js";
+import {AuthProvider} from "../utils/AuthContext.jsx";
 
 function ProtectedRoute({isLoggedIn, children}) {
   return isLoggedIn ? children : <Navigate to="/login" replace/>
@@ -57,7 +58,9 @@ function App() {
         <Route path="/*" element=
           {
             <ProtectedRoute isLoggedIn={isLoggedIn}>
-              <Layout />
+              <AuthProvider>
+                <Layout />
+              </AuthProvider>
             </ProtectedRoute>
           }
         >

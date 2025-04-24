@@ -24,10 +24,6 @@ export default function Layout() {
   const closeGroupCreationModal = () => setGroupCreationModalOpen(false);
 
 
-  const handleNewNote = () => {
-    console.log('New note action triggered!');
-  }
-
   return (
     <div
       style={{

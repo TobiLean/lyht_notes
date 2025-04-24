@@ -43,6 +43,7 @@
 }
 
 .sidebar, .bottombar {
+  /*border-style: outset;*/
   background-color: #616161;
 }
 
@@ -179,11 +180,30 @@
   height: 22px;
   position: fixed;
   bottom: 0;
-  padding: 0 8px;
+  padding: 0 20px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+}
+
+.email-bottombar-btn {
+  margin-right: 8px;
+  text-align: center;
+  padding: 0 4px;
+  font-size: 0.8rem;
+  color: var(--text-light);
+  /*box-sizing: border-box;*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.email-bottombar-btn:hover {
+  background-color: var(--button-hover-color);
+  border-right: 1px solid var(--secondary-color);
+  border-left: 1px solid var(--secondary-color);
+  cursor: default;
 }
 
 .main-container {
@@ -253,8 +273,9 @@
 .tag-list-note {
   margin-left: 24px;
   padding: 0 4px 0 4px;
-  width: max-content;
+  width: calc(100% - 24px);
   border-radius: 5px;
+  box-sizing: border-box;
 }
 
 .tag-list-note:hover {
@@ -268,7 +289,12 @@
 
 /* Groups List */
 
+.group-list {
+  width: 100%;
+}
+
 .group-list-name {
+  box-sizing: border-box;
   cursor: default;
   width: 100%;
 }
@@ -279,7 +305,7 @@
 
 .signout-button {
   width: 20px;
-  height: 16px;
+  height: 100%;
   padding: 0;
   box-sizing: border-box;
   display: flex;
@@ -288,7 +314,7 @@
   border: none;
   outline: none;
   background: none;
-  border-radius: 4px;
+  /*border-radius: 4px;*/
 }
 
 .signout-button:hover {
