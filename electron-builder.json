@@ -6,8 +6,7 @@
   },
   "files": [
     "dist-electron",
-    "dist-react",
-    "src/services/hocusPocusService.js"
+    "dist-react"
   ],
   "extraResources": ["dist-electron/preload.cjs"],
   "icon": "icon.ico",

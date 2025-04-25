@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {useNavigate, NavLink} from 'react-router-dom';
+import { useNotification } from "../components/NotificationProvider.jsx";
 import supabaseClient from '../../utils/supabaseClient.js';
 import './LoginPage.css';
 
@@ -8,6 +9,8 @@ import bgImg from '../assets/backgrounds/login_bg.jpg'
 import CustomTitleBar from "../components/CustomTitleBar.jsx";
 
 function LoginPage({setIsLoggedIn}) {
+  const notify = useNotification();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -17,18 +20,38 @@ function LoginPage({setIsLoggedIn}) {
     e.preventDefault();
     if (!email || !password) {
       setMessage('Please fill in both fields.');
+      notify.warning({
+        message: 'Please fill in both fields.',
+        description: 'Please fill in both fields.',
+        position: 'bottomRight',
+      })
       console.log(message);
       return;
     }
 
-    const {error} = await supabaseClient.auth.signInWithPassword({email, password});
+    const {data , error} = await supabaseClient.auth.signInWithPassword({email, password});
+    console.log("Supabase Response:", data, error);
+
     if (error) {
-      setMessage('Error logging in: ' + error.message);
-      console.log(error);
+      setMessage('Login failed');
+      notify.error({
+        message: "Login failed",
+        description: error.message,
+        position: "bottomRight",
+      });
     } else {
-      setMessage('Login successful!');
-      setIsLoggedIn(true)
-      navigate('/'); // Redirect after successful login
+      setMessage('Login successfull!');
+      notify.success({
+        message: "Login successful!",
+        description: "Welcome back!",
+        position: "bottomRight",
+      });
+
+      console.log("User authenticated:", data.user);
+      console.log("Session:", data.session);
+
+      setIsLoggedIn(true);
+      setTimeout(() => navigate("/"), 5000);
     }
   };
 
@@ -44,7 +67,6 @@ function LoginPage({setIsLoggedIn}) {
             Sign up and change the <br/> way you collaborate,<br/>
             take notes <br/>and facilitate the <br/>perfect lectures!
           </p>
-          {/*<img src={funcardImg} alt="" className="login-fun-card-image"/>*/}
         </div>
         <div className="login-form-container">
           <h2 className="page-title">Login</h2>
@@ -58,7 +80,6 @@ function LoginPage({setIsLoggedIn}) {
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                required
               />
             </div>
             <div className="password-login login-input-section">
@@ -69,7 +90,6 @@ function LoginPage({setIsLoggedIn}) {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                required
               />
             </div>
             <button className="submit-button" type="submit">Login</button>

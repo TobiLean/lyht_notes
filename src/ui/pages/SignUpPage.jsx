@@ -1,6 +1,7 @@
 import React from 'react';
 import {Navigate, useNavigate, redirect, NavLink} from "react-router-dom";
 import {useEffect, useState} from "react";
+import { useNotification } from "../components/NotificationProvider.jsx";
 import supabaseClient from '../../utils/supabaseClient.js';
 
 import './SignUpPage.css'
@@ -16,6 +17,8 @@ function SignUpPage() {
   const [birthday, setBirthday] = React.useState('');
   const [teacher, setTeacher] = React.useState(false);
   const navigate = useNavigate();
+
+  const notify = useNotification();
 
   useEffect(() => {
     supabaseClient.auth.getSession().then(({data: {session}}) => {
@@ -46,12 +49,27 @@ function SignUpPage() {
       if (error) {
         console.error('Error updating profiles:', error.message);
         setMessage(`Error updating profiles: ${error.message}`);
+        notify.error({
+          message: "Error updating profiles",
+          description: error.message,
+          position: 'bottomRight',
+        })
       } else {
         console.log('Profile updated successfully.');
+        notify.success({
+          message: "Profile created successfully.",
+          description: "Profile updated successfully.",
+          position: 'bottomRight',
+        })
       }
     } catch (err) {
       console.error('Unexpected error:', err.message);
       setMessage('Unexpected error occurred.');
+      notify.error({
+        message: "Unexpected error",
+        description: err.message,
+        position: 'bottomRight',
+      })
     }
   }
 
@@ -60,12 +78,22 @@ function SignUpPage() {
 
     if (password.length < 8) {
       setMessage('Password must be at least 8 characters long!');
+      notify.warning({
+        message: "Password must be at least 8 characters long!",
+        description: "Password must be at least 8 characters long!",
+        position: 'bottomRight',
+      })
       return;
     }
 
     //Validate Password match
     if (password !== confirmPassword) {
       setMessage('Passwords do not match!')
+      notify.warning({
+        message: "Passwords do not match!",
+        description: "Passwords do not match!",
+        position: 'bottomRight',
+      })
       return;
     }
 
@@ -80,8 +108,18 @@ function SignUpPage() {
 
     if (error) {
       setMessage(`Error: ${error.message}`);
+      notify.error({
+        message: "Error",
+        description: error.message,
+        position: 'bottomRight',
+      })
     } else {
       setMessage('Signup successful');
+      notify.success({
+        message: "Signup successfully.",
+        description: "Signup successfully.",
+        position: 'bottomRight',
+      })
       navigate('http://localhost:5123/login');
     }
   }

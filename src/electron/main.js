@@ -32,7 +32,7 @@ const createWindow = (url) => {
   })
   win.loadFile(path.join(app.getAppPath() + '/dist-react/index.html'));
 
-  // Add IPC Handlers for Window Control
+  // IPC Handlers for Window Control
   ipcMain.on('minimize-window', () => {
     win.minimize();
   });
@@ -44,8 +44,6 @@ const createWindow = (url) => {
   ipcMain.on('close-window', () => {
     win.close();
   });
-
-
 }
 
 let collabServer;

@@ -1,5 +1,6 @@
 const { contextBridge, ipcRenderer } = require('electron');
 
+// Exposes certain api's to system level
 contextBridge.exposeInMainWorld('lyhtAPI', {
   saveNote: (content) => ipcRenderer.send('save-note', content),
   loadNote: (callback) => ipcRenderer.once('load-note', (_, data) => callback(data)),

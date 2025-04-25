@@ -1,5 +1,6 @@
 .env
 .env.*
+cypress.config.js
 .cache/
 *.tmp
 coverage/
@@ -20,6 +21,7 @@ dist
 dist-react
 dist-electron
 release-builds
+cypress
 *.local
 
 # Editor directories and files

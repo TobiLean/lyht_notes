@@ -4,7 +4,6 @@ import NotesPage from "./pages/NotesPage.jsx"
 import GroupsPage from "./pages/GroupsPage.jsx"
 import LoginPage from "./pages/LoginPage.jsx"
 import SignUpPage from "./pages/SignUpPage.jsx";
-import AiPage from "./pages/AiPage.jsx";
 import QuizzesPage from "./pages/QuizzesPage.jsx";
 import {HashRouter, Navigate, Route, Routes} from "react-router-dom";
 import { NotificationProvider } from "./components/NotificationProvider.jsx";
@@ -75,9 +74,6 @@ function App() {
               <Route path=":id" element={<NotesPage/>}/>
             </Route>
 
-
-            {/*<Route index element={<Navigate to="/notes/00" replace/>}/>*/}
-            {/*<Route path="notes/:id" element={<NotesPage/>}/>*/}
             <Route path="groups" element={<GroupsPage/>}/>
             <Route path="quizzes" element={<QuizzesPage/>}/>
             <Route path="login" element={<LoginPage/>}/>
