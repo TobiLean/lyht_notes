@@ -39,6 +39,7 @@
     "@tiptap/react": "^2.11.7",
     "@tiptap/starter-kit": "^2.11.7",
     "antd": "^5.24.8",
+    "cors": "^2.8.5",
     "lucide-react": "^0.487.0",
     "os-utils": "^0.0.14",
     "react": "^19.1.0",

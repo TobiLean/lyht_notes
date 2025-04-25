@@ -1,5 +1,6 @@
 import {app, ipcMain, BrowserWindow} from 'electron';
 import path from 'path';
+import { Server } from '@hocuspocus/server';
 import {isDev} from "./utils.js";
 import {getPrelodePath} from "./pathResolver.js";
 
@@ -47,7 +48,18 @@ const createWindow = (url) => {
 
 }
 
+let collabServer;
+
 app.whenReady().then(() => {
+
+  // Start service to enable collaboration
+  collabServer = Server.configure({
+    port: process.env.PORT || 3123,
+    host: '0.0.0.0', // Allow access from any device on the network
+  });
+
+  collabServer.listen();
+
   const mainWindow = new BrowserWindow({
     fullscreenable: false,
     maximizable: true,
@@ -92,11 +104,18 @@ app.whenReady().then(() => {
   });
 
   app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow()
+      if(!collabServer) {
+        collabServer = Server.configure({ port: 3123, host: '0.0.0.0' });
+        collabServer.listen();
+      }
+    }
   })
 
 })
 
 app.on('window-all-closed', () => {
+  collabServer.destroy();
   if (process.platform !== 'darwin') app.quit()
 })

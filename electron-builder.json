@@ -6,7 +6,8 @@
   },
   "files": [
     "dist-electron",
-    "dist-react"
+    "dist-react",
+    "src/services/hocusPocusService.js"
   ],
   "extraResources": ["dist-electron/preload.cjs"],
   "icon": "icon.ico",
@@ -19,7 +20,8 @@
       "portable",
       "msi",
       "nsis"
-    ]
+    ],
+    "requestedExecutionLevel": "requireAdministrator"
   },
   "linux": {
     "target": "AppImage",

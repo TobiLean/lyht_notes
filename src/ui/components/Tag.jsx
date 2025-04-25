@@ -5,7 +5,7 @@ import { ChevronRight } from 'lucide-react'
 import {useNotification} from "./NotificationProvider.jsx";
 import DeleteTagButton from "./DeleteTagButton.jsx";
 
-function Tag({tag, notes}) {
+function Tag({tag, notes, setCurrentNoteData}) {
   const notify = useNotification();
   const statusRef = useRef(null);
 
@@ -35,7 +35,10 @@ function Tag({tag, notes}) {
         <DeleteTagButton tagId={tag.tag_id} />
       </summary>
       {notes.map((note) => (
-        <div key={note.id} className="tag-list-note">
+        <div key={note.id} className="tag-list-note" onClick={() => {
+          setCurrentNoteData(note)
+          console.log("Current note data tag: ", note)
+        }}>
           <NavLink
             to={'/notes/' + note.id}
             aria-label={note.id}

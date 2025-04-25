@@ -2,7 +2,9 @@ import React from 'react';
 import LyhtIcon from "./LyhtIcon.jsx";
 import {X, Maximize, Minus} from 'lucide-react'
 
-const CustomTitleBar = () => {
+const CustomTitleBar = ({currentNoteData}) => {
+
+  console.log("Title bar note", currentNoteData);
 
   // Function to minimize the application
   const handleMinimize = () => {
@@ -25,7 +27,7 @@ const CustomTitleBar = () => {
         <div className="title-bar-lyht-icon">
           <LyhtIcon />
         </div>
-        Lyht Notes
+        Lyht Notes - {currentNoteData?.title}
       </div>
       <div className="title-bar-right">
         <button className="window-action-button window-minimize" onClick={handleMinimize}><Minus /></button>

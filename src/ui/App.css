@@ -309,6 +309,8 @@
 }
 
 .tag-list-note a {
+  display: block;
+  width: 100%;
   cursor: default;
 }
 

@@ -1,9 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 import './NotesPage.css'
-import TipTap from '../components/TipTap.jsx'
 import EditorComponent from '../components/TipTap2.jsx'
-import TestComponent from "../components/TestComponent.jsx";
 import CreateNoteModal from "../components/CreateNoteModal.jsx";
 import AddCollaboratorModal from "../components/AddCollaboratorModal.jsx";
 import {useOutletContext} from "react-router-dom";
@@ -20,7 +18,8 @@ const NotesPage = () => {
     isAddCollaboratorModelOpen,
     closeAddCollaboratorModal,
     isNoteModalOpen,
-    closeNoteModal
+    closeNoteModal,
+    setCurrentNoteData
   } = useOutletContext();
   const {authContextProfileNames} = useContext(AuthContext);
   const [currentUser, setCurrentUser] = useState(null);
@@ -30,7 +29,6 @@ const NotesPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("Hmmmm")
     if (noteId !== "00") {
       console.log(noteId);
     } else {
@@ -40,7 +38,7 @@ const NotesPage = () => {
         try {
           const {data, error} = await supabaseClient
             .from("notes")
-            .select("id, updated_at")
+            .select("id, updated_at, title")
             .order("updated_at", {ascending: false}); // Sort by latest update
 
           if (error) {
@@ -51,8 +49,9 @@ const NotesPage = () => {
           if (data.length > 0) {
             // Navigate to the most recently updated note
             navigate(`/notes/${data[0].id}`, {replace: true});
+            console.log("Data of note ", data[0])
+            setCurrentNoteData(data[0]);
             console.log("NotesPage notes", noteId);
-            // setNoteID(noteId);
             setPend(false);
           }
         } catch (err) {

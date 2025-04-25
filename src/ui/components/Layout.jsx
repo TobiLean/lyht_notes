@@ -11,6 +11,7 @@ export default function Layout() {
 
   // Get current page from location
   const activeView = (location.pathname.split('/')[1] || '');
+  const [currentNoteData, setCurrentNoteData] = useState(null);
   const [saveStatus, setSaveStatus] = useState('');
   const [isNoteModalOpen, setNoteModalOpen] = useState(false);
   const [isQuizCreationModalOpen, setQuizCreationModalOpen] = useState(false);
@@ -36,15 +37,16 @@ export default function Layout() {
         height: '100vh',
       }}
     >
-      <CustomTitleBar/>
+      <CustomTitleBar currentNoteData={currentNoteData} />
       <Sidebar activeView={activeView} onOpenNoteModal={openNoteModal}
                onOpenQuizCreationModal={onOpenQuizCreationModal}
                onOpenGroupCreationModal={onOpenGroupCreationModal}
                onOpenAddCollaboratorModal={onOpenAddCollaboratorModal}
+               setCurrentNoteData={setCurrentNoteData}
       />
       <div className='main-container'>
         <Outlet context={{
-          activeView, saveStatus, setSaveStatus, isNoteModalOpen, closeNoteModal, isQuizCreationModalOpen,
+          activeView, saveStatus, setSaveStatus, isNoteModalOpen, setCurrentNoteData, closeNoteModal, isQuizCreationModalOpen,
           closeQuizCreationModal, isGroupCreationModalOpen, closeGroupCreationModal, isAddCollaboratorModelOpen, closeAddCollaboratorModal
         }}/>
       </div>

@@ -115,7 +115,7 @@ const EditorComponent = ({noteId, user}) => {
 
         // Handle missing Y.Doc state
         if (!data?.ydoc) {
-          console.warn("⚠️ No stored Y.Doc found in Supabase. Creating a new document.");
+          console.warn("No stored Y.Doc found in Supabase. Creating a new document.");
 
           // Generate initial update from empty doc
           const initialUpdate = Y.encodeStateAsUpdate(collab.ydoc);
@@ -166,7 +166,7 @@ const EditorComponent = ({noteId, user}) => {
   // Save note to Supabase
   const saveNote = async () => {
     if (!collab?.ydoc || !editor) {
-      console.warn("⚠️ Editor or Y.Doc not initialized yet");
+      console.warn("Editor or Y.Doc not initialized yet");
       return;
     }
 
@@ -237,7 +237,7 @@ const EditorComponent = ({noteId, user}) => {
         (payload) => {
           try {
             if (!payload.new.ydoc) {
-              console.error("❌ Skipping invalid update: No ydoc data");
+              console.error("Skipping invalid update: No ydoc data");
               return;
             }
 
@@ -245,15 +245,15 @@ const EditorComponent = ({noteId, user}) => {
             const updateBytes = base64ToUint8Array(payload.new.ydoc);
 
             if (updateBytes.length === 0) {
-              console.warn("⚠️ Empty update received");
+              console.warn("Empty update received");
               return;
             }
 
             // Apply the update to our Y.Doc
             Y.applyUpdate(collab.ydoc, updateBytes);
-            console.log("✅ Applied real-time update from Supabase");
+            console.log("Applied real-time update from Supabase");
           } catch (err) {
-            console.error("❌ Real-time update error:", err);
+            console.error("Real-time update error:", err);
           }
         })
       .subscribe();
@@ -270,13 +270,6 @@ const EditorComponent = ({noteId, user}) => {
       <div
         className="editor"
       />
-      {/*<button*/}
-      {/*  className="save-button"*/}
-      {/*  onClick={saveNote}*/}
-      {/*  disabled={!editor || !collab?.ydoc}*/}
-      {/*>*/}
-      {/*  Save Note*/}
-      {/*</button>*/}
     </div>
   );
 };

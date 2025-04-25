@@ -10,7 +10,8 @@ export default function DynamicSidebar({
                                          onOpenNoteModal,
                                          onOpenQuizCreationModal,
                                          onOpenGroupCreationModal,
-                                         onOpenAddCollaboratorModal
+                                         onOpenAddCollaboratorModal,
+                                         setCurrentNoteData
                                        }) {
   console.log('DynamicSidebar rendering, activeView:', activeView);
   const [notesList, setNotesList] = useState([]);
@@ -126,7 +127,7 @@ export default function DynamicSidebar({
         >
           Add Collaborator
         </button>
-        <TagList tags={tagsList} notes={notesList}/>
+        <TagList tags={tagsList} notes={notesList} setCurrentNoteData={setCurrentNoteData} />
       </div>
     )
   } else if (activeView === 'groups') {

@@ -8,7 +8,8 @@ export default function Sidebar({
                                   onOpenNoteModal,
                                   onOpenQuizCreationModal,
                                   onOpenGroupCreationModal,
-                                  onOpenAddCollaboratorModal
+                                  onOpenAddCollaboratorModal,
+                                  setCurrentNoteData,
                                 }) {
   return (
     <div className="sidebar">
@@ -17,6 +18,7 @@ export default function Sidebar({
                       onOpenQuizCreationModal={onOpenQuizCreationModal}
                       onOpenGroupCreationModal={onOpenGroupCreationModal}
                       onOpenAddCollaboratorModal={onOpenAddCollaboratorModal}
+                      setCurrentNoteData={setCurrentNoteData}
       />
     </div>
   )

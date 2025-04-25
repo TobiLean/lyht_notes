@@ -2,8 +2,8 @@ import React, {useState} from "react";
 import Modal from "./Modal.jsx"
 
 const NoteMenuBar = ({editor, saveNote}) => {
-  [isModalOpen, setIsModalOpen] = useState(false);
-  [imageUrl, setImageUrl] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
 
   if (!editor) return null; // Prevent errors if editor isn't initialized
 
@@ -13,6 +13,14 @@ const NoteMenuBar = ({editor, saveNote}) => {
     } else {
       element.classList.add('toggled');
     }
+  }
+
+  function handleAddImage() {
+    if(imageUrl) {
+      editor.chain().focus().setImage({src: imageUrl}).run()
+    }
+    setIsModalOpen(false);
+    setImageUrl("");
   }
 
   return (
@@ -48,12 +56,25 @@ const NoteMenuBar = ({editor, saveNote}) => {
         >
           H2 Heading
         </button>
-        <button onClick={() => {
-          const imageUrl = prompt("Enter image URL:");
-          if (imageUrl) editor.chain().focus().setImage({src: imageUrl}).run();
-        }} className="note-menu-bar-button">
+        <button onClick={() => setIsModalOpen(true) } className="note-menu-bar-button">
           Add Image
         </button>
+
+        <Modal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          title="Add Image"
+          footer={<button onClick={handleAddImage} className="btn-save">
+            Add Image
+          </button>}
+        >
+          <input
+            type="text"
+            placeholder="https://example.com/image.jpg"
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
+          />
+        </Modal>
       </div>
       <div className="note-menu-bar-right">
         <button

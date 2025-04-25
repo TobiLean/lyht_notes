@@ -9,19 +9,26 @@
     color: var(--text-light);
 }
 
-.note-editor-container {
+.editor-container {
     position: relative;
     height: 100%;
     width: 100%;
     box-sizing: border-box;
 }
 
-.note-editor {
+.editor {
     height: calc(100% - 68px);
     max-height: 100%;
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
+    /*overflow-x: hidden;*/
+    /*overflow-y: auto;*/
+}
+
+.editor div {
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 /* Styling the TipTap text area */
