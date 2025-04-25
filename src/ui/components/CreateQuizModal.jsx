@@ -182,8 +182,6 @@ const CreateQuizModal = ({isOpen, onClose, userId}) => {
           />
         </div>
 
-        {/*<div className="label-inputarea-group"></div>*/}
-
         <div className="input-section-with-header">
           <h4>Questions:</h4>
           {questions.map((question, index) => (
