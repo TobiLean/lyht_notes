@@ -1,12 +1,13 @@
 /* Whole Page */
 
 .quiz-dashboard {
+    color: var(--text-dark);
     padding: 0 8px;
 }
 
-.quiz-dashboard * {
-    color: var(--text-dark);
-}
+/*.quiz-dashboard * {*/
+/*    color: var(--text-dark);*/
+/*}*/
 
 /* Search */
 
@@ -119,7 +120,6 @@
 
 .quiz-meta {
     font-size: 0.85rem;
-    color: green;
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -133,7 +133,7 @@
     align-items: center;
 }
 
-.quiz-card-footer button, .modal-footer button{
+.quiz-card-footer button, .quiz-modal-footer button{
     border-radius: 4px;
     min-width: 72px;
     max-width: 45%;
@@ -145,7 +145,7 @@
 }
 
 /* Modal Styles */
-.modal-overlay {
+.quiz-modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -161,12 +161,12 @@
     transition: all 0.3s ease;
 }
 
-.modal-overlay.active {
+.quiz-modal-overlay.active {
     opacity: 1;
     visibility: visible;
 }
 
-.modal {
+.quiz-modal {
     background: white;
     width: 90%;
     max-width: 600px;
@@ -177,11 +177,11 @@
     transition: all 0.3s ease;
 }
 
-.modal-overlay.active .modal {
+.quiz-modal-overlay.active .quiz-modal {
     transform: translateY(0);
 }
 
-.modal-header {
+.quiz-modal-header {
     padding: 1.25rem;
     border-bottom: 1px solid var(--fixed-element-color);
     display: flex;
@@ -189,12 +189,12 @@
     align-items: center;
 }
 
-.modal-title {
+.quiz-modal-title {
     font-size: 1.2rem;
     font-weight: 600;
 }
 
-.close-modal {
+.close-quiz-modal {
     background: none;
     border: none;
     font-size: 1.5rem;
@@ -202,13 +202,13 @@
     color: var(--tertiary-color) !important;
 }
 
-.modal-body {
+.quiz-modal-body {
     padding: 1.5rem;
     max-height: 70vh;
     overflow-y: auto;
 }
 
-.modal-footer {
+.quiz-modal-footer {
     padding: 1.25rem;
     border-top: 1px solid var(--fixed-element-color);
     display: flex;

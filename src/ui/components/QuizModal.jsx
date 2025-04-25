@@ -107,7 +107,7 @@ const QuizModal = ({quiz, isOpen, onClose, userId}) => {
         console.log("Setting Score Modal to open...")
         setScoreModalOpen(true);
         if (scoreModalOpen) {
-          onClose(); // Close the modal after successful submission
+          onClose(); // Close the quiz-modal after successful submission
         }
       }
     } catch (err) {
@@ -122,15 +122,15 @@ const QuizModal = ({quiz, isOpen, onClose, userId}) => {
 
   return (
     <>
-      <div className={`modal-overlay ${isOpen ? 'active' : ''}`} onClick={onClose}>
-        <div className="modal" onClick={(e) => e.stopPropagation()}>
-          <div className="modal-header">
-            <h2 className="modal-title">{quiz.title}</h2>
-            <button className="close-modal" onClick={onClose}>
+      <div className={`quiz-modal-overlay ${isOpen ? 'active' : ''}`} onClick={onClose}>
+        <div className="quiz-modal" onClick={(e) => e.stopPropagation()}>
+          <div className="quiz-modal-header">
+            <h2 className="quiz-modal-title">{quiz.title}</h2>
+            <button className="close-quiz-modal" onClick={onClose}>
               <X size={20}/>
             </button>
           </div>
-          <div className="modal-body">
+          <div className="quiz-modal-body">
             <div className="question">
               <h3 className="question-text">
                 Question {currentQuestionIndex + 1}: {currentQuestion.text}
@@ -148,7 +148,7 @@ const QuizModal = ({quiz, isOpen, onClose, userId}) => {
               </div>
             </div>
           </div>
-          <div className="modal-footer">
+          <div className="quiz-modal-footer">
             <button
               className="cool-button"
               onClick={handlePrevQuestion}
@@ -161,7 +161,6 @@ const QuizModal = ({quiz, isOpen, onClose, userId}) => {
             <button
               className={`btn ${currentQuestionIndex === quiz.questions.length - 1 ? 'submit-quiz-btn' : ''}`}
               onClick={currentQuestionIndex === quiz.questions.length - 1 ? handleSubmit : handleNextQuestion}
-              // disabled={currentQuestionIndex === quiz.questions.length - 1}
               style={{
                 backgroundColor: currentQuestionIndex === quiz.questions.length - 1 ?
                   'var(--positive-button-color)' : 'var(--tertiary-color)',

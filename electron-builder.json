@@ -9,7 +9,7 @@
     "dist-react"
   ],
   "extraResources": ["dist-electron/preload.cjs"],
-  "icon": "./icon.ico",
+  "icon": "icon.ico",
   "mac": {
     "target": "dmg"
   },

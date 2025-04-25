@@ -1,6 +1,7 @@
 import React from 'react';
 import { X } from 'lucide-react';
 
+// Custom Modal component to be re-used by other components dependent on modals
 const Modal = ({ isOpen, onClose, title, children, footer }) => {
   if (!isOpen) {
     return null;

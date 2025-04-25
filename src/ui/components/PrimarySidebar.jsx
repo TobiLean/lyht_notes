@@ -1,7 +1,6 @@
 import React, {useState} from "react"
 import GroupIcon from "./GroupIcon.jsx";
 import NotesIcon from "./NotesIcon.jsx";
-import AidIcon from "./AiIcon.jsx";
 import QuizIcon from "./QuizIcon.jsx";
 import {NavLink} from 'react-router-dom'
 
@@ -9,7 +8,6 @@ export default function PrimarySidebar({activeView, onNavigate}) {
   const navItems = [
     {label: 'Notes', path: '/notes', svg: <NotesIcon />},
     {label: 'Groups', path: '/groups', svg: <GroupIcon />},
-    {label: 'AI', path: '/ai', svg: <AidIcon />},
     {label: 'Quizzes', path: '/quizzes', svg: <QuizIcon />},
   ]
 

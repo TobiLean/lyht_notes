@@ -2,8 +2,11 @@ import {NavLink} from 'react-router-dom'
 import { useRef } from "react";
 import { ChevronDown } from 'lucide-react';
 import { ChevronRight } from 'lucide-react'
+import {useNotification} from "./NotificationProvider.jsx";
+import DeleteTagButton from "./DeleteTagButton.jsx";
 
 function Tag({tag, notes}) {
+  const notify = useNotification();
   const statusRef = useRef(null);
 
   function handleToggle(e) {
@@ -29,6 +32,7 @@ function Tag({tag, notes}) {
         <p className="tag-name">
           {tag.name.charAt(0).toUpperCase() + tag.name.slice(1)}
         </p>
+        <DeleteTagButton tagId={tag.tag_id} />
       </summary>
       {notes.map((note) => (
         <div key={note.id} className="tag-list-note">

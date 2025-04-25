@@ -1,18 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import Modal from './Modal';
+import {useNotification} from "./NotificationProvider.jsx";
 import supabaseClient from "../../utils/supabaseClient.js";
 
-const CreateNoteModal = ({ isOpen, onClose, userId }) => {
+// Component to render modal for creating a new not and tag
+const CreateNoteModal = ({isOpen, onClose, userId}) => {
   const [noteTitle, setNoteTitle] = useState('');
   const [tags, setTags] = useState([]);
   const [selectedTagId, setSelectedTagId] = useState(null);
   const [newTagName, setNewTagName] = useState('');
   const [isCustomTag, setIsCustomTag] = useState(false); // Tracks if "Custom" is selected
 
+  const notify = useNotification();
+
+  // Effect to get user's tags for tag selection list
   useEffect(() => {
     const fetchTags = async () => {
       try {
-        const { data, error } = await supabaseClient
+        const {data, error} = await supabaseClient
           .from('tags')
           .select('*')
           .eq('user_id', userId);
@@ -35,12 +40,20 @@ const CreateNoteModal = ({ isOpen, onClose, userId }) => {
 
   const handleSave = async () => {
     if (!noteTitle || (!selectedTagId && !isCustomTag)) {
-      alert('Please provide a note title and select a tag.');
+      notify.warning({
+        message: 'Incomplete Information',
+        description: 'Please provide a note title and select a tag.',
+        placement: 'bottomRight',
+      })
       return;
     }
 
     if (isCustomTag && newTagName.trim() === '') {
-      alert('Please provide a name for your custom tag.');
+      notify.warning({
+        message: 'Incomplete Information',
+        description: 'Please provide a name for your custom tag.',
+        placement: 'bottomRight',
+      })
       return;
     }
 
@@ -49,53 +62,79 @@ const CreateNoteModal = ({ isOpen, onClose, userId }) => {
     // If creating a custom tag, save it first
     if (isCustomTag) {
       try {
-        const { data, error } = await supabaseClient
+        // Create new tag ids based on lenghth of tag array. Default tagId = 0 ('General')
+        const newTagId = tags.length
+        const newTagColour = '#' + Math.floor(Math.random() * 16777215).toString(16)
+
+        const {data, error} = await supabaseClient
           .from('tags')
-          .insert({ name: newTagName, user_id: userId })
-          .select()
+          .insert({name: newTagName.toLowerCase(), user_id: userId, tag_id: newTagId, color: newTagColour})
+          .select("*")
           .single();
 
         if (error) {
           console.error('Error creating custom tag:', error.message);
-          alert('Failed to create custom tag. Please try again.');
+          notify.error({
+            message: 'Failed to create custom tag:',
+            description: 'Failed to create custom tag. Please try again.',
+            placement: 'bottomRight',
+          })
           return;
         }
 
-        tagId = data.id; // Use the new tag ID
+        tagId = data.tag_id; // Use the new tag ID
+        console.log("Checking new tag id", tagId)
         setTags([...tags, data]); // Add the new tag to the list
         setNewTagName(''); // Clear the input
         setIsCustomTag(false); // Reset custom tag state
       } catch (err) {
         console.error('Unexpected error creating custom tag:', err);
-        alert('An error occurred while creating the tag. Please try again.');
+        notify.error({
+          message: 'Unexpected error creating custom tag',
+          description: 'An error occurred while creating the tag. Please try again.',
+          placement: 'bottomRight',
+        })
         return;
       }
     }
 
     // Save the note with the resolved tag ID
     try {
-      const { error } = await supabaseClient.from('notes').insert({
+      const {error} = await supabaseClient.from('notes').insert({
         title: noteTitle,
         user_id: userId,
-        content: [0,0],
+        content: [0, 0],
         tag_id: tagId,
       });
 
       if (error) {
         console.error('Error saving note:', error.message);
-        alert('Failed to save the note. Please try again.');
+        notify.error({
+          message: 'Error saving note',
+          description: 'Failed to save the note. Please try again.',
+          placement: 'bottomRight',
+        })
       } else {
         setNoteTitle('');
         setSelectedTagId(null);
         onClose();
-        alert('Note saved successfully!');
+        notify.success({
+          message: 'Success!',
+          description: 'Note saved successfully!',
+          placement: 'bottomRight',
+        })
       }
     } catch (err) {
       console.error('Unexpected error saving note:', err);
-      alert('An error occurred while saving the note. Please try again.');
+      notify.error({
+        message: 'Unexpected error saving note',
+        description: 'An error occurred while saving the note. Please try again.',
+        placement: 'bottomRight',
+      })
     }
   };
 
+  // Handle selected tag changes
   const handleTagChange = (e) => {
     const value = e.target.value;
     if (value === 'custom') {

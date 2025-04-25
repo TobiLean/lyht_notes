@@ -1,5 +1,5 @@
 /*
- Title bar styling and elements
+ Custom title bar styling and elements
 */
 
 .title-bar {
@@ -7,7 +7,7 @@
   background: var(--fixed-element-color);
   color: white;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   app-region: drag;
   user-select: none;
@@ -17,9 +17,33 @@
   z-index: 1000;
   box-sizing: border-box;
   border-bottom: 1px solid var(--secondary-color);
-
+  padding: 0 0 0 16px;
 }
 
+.title-bar-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.title-bar-left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title-bar-lyht-icon {
+  display: flex;
+  align-items: center;
+  margin-right: 8px;
+}
+
+.title-bar-lyht-icon svg {
+  width: 16px;
+}
+
+/*Minimize, Maximize and Close buttons*/
 .window-action-button {
   cursor: default;
   height: 100%;
@@ -42,8 +66,9 @@
   -webkit-app-region: no-drag;
 }
 
+/*Side bar and navigation styling*/
+
 .sidebar, .bottombar {
-  /*border-style: outset;*/
   background-color: #616161;
 }
 
@@ -303,6 +328,10 @@
   cursor: default;
 }
 
+/*
+ Button styling
+*/
+
 .signout-button {
   width: 20px;
   height: 100%;
@@ -314,7 +343,6 @@
   border: none;
   outline: none;
   background: none;
-  /*border-radius: 4px;*/
 }
 
 .signout-button:hover {
@@ -329,4 +357,221 @@
 
 .cool-button:hover {
   transition: var(--transition);
+}
+
+.delete-tag-button {
+  display: flex !important;
+  align-items: center !important;
+  background-color: transparent !important;
+  color: var(--text-dark);
+  width: 20px !important;
+  height: max-content !important;
+  border: none !important;
+  padding: 2px !important;
+  margin-left: 8px !important;
+}
+
+.delete-tag-button:hover {
+  color: var(--negative-hover);
+  background-color: transparent !important;
+}
+
+.delete-tag-button svg {
+  width: 16px;
+}
+
+/*
+Modal styling
+*/
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal {
+  background: var(--background-ash);
+  width: 90%;
+  max-width: 600px;
+  max-height: 600px;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transform: translateY(-20px);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.modal-overlay.active .modal {
+  transform: translateY(0);
+}
+
+.modal-header {
+  background-color: var(--fixed-element-color);
+  padding: 1.25rem;
+  border-bottom: 2px solid var(--fixed-element-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100.641px;
+  box-sizing: border-box;
+  color: var(--text-light);
+}
+
+.modal-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.close-modal {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: 4px;
+  color: var(--tertiary-color) !important;
+}
+
+.close-modal:hover {
+  background-color: var(--negative-hover);
+}
+
+.modal-body {
+  padding: 1.5rem 1.5rem calc(59px + 20px) 1.5rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 400px;
+  box-sizing: border-box;
+  color: var(--text-light);
+}
+
+.modal-body select {
+  background-color: var(--button-color);
+  border-radius: 4px;
+}
+
+.modal-body select:focus {
+  background-color: var(--button-hover-color);
+  outline: none;
+}
+
+.modal-body button {
+  background-color: var(--button-color);
+  border-radius: 4px;
+}
+
+.modal-body button:hover {
+  background-color: var(--button-hover-color);
+}
+
+.modal-body input, .modal-body textarea {
+  background-color: var(--main-container-background-color);
+  border-radius: 4px;
+}
+
+.modal-body textarea {
+  resize: none;
+}
+
+.modal-body textarea:focus, .modal-body input:focus {
+  border: 1px solid var(--tertiary-color);
+  outline: none;
+}
+
+.modal-body button:focus, .modal-footer button:focus {
+  background-color: var(--button-hover-color);
+}
+
+.modal-footer {
+  background-color: var(--fixed-element-color);
+  padding: 1.25rem;
+  box-sizing: border-box;
+  border-top: 1px solid var(--fixed-element-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-light);
+  min-height: 59px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.modal-footer button {
+  background-color: var(--button-color);
+  border-radius: 4px;
+}
+
+.btn-save:hover {
+  background-color: var(--positive-button-color);
+}
+
+.btn-save:focus {
+  background-color: var(--positive-button-color);
+}
+
+.btn-save:disabled {
+  background-color: var(--button-color);
+}
+
+.btn-cancel:hover {
+  background-color: var(--button-hover-color);
+}
+
+/*
+General Styling
+*/
+
+*:disabled {
+  cursor: not-allowed;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--fixed-element-color);
+  border-radius: 5px;
+}
+
+.label-inputarea-group {
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.label-inputarea-group label {
+  margin-right: 16px;
+}
+
+.question-item {
+  background-color: var(--fixed-element-color);
+  box-shadow: var(--shadow);
+  border-radius: 4px;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+  padding: 16px;
 }

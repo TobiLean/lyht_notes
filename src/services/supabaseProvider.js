@@ -10,8 +10,6 @@ class SupabaseProvider {
     const { awareness = new awarenessProtocol.Awareness(ydoc) } = options;
     this.roomName = roomName;
     this.ydoc = ydoc;
-    // this.options = options;
-    // Store awareness instance
     this.awareness = awareness || new awarenessProtocol.Awareness(doc);
     console.log("SupabaseProvider constructor – awareness:", this.awareness);
     console.log("SupabaseProvider constructor – awareness.states:", this.awareness?.states);

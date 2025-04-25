@@ -1,15 +1,25 @@
 import Modal from "./Modal.jsx";
 import React, {useState} from "react";
+import { useNotification } from "./NotificationProvider.jsx";
 import supabaseClient from "../../utils/supabaseClient.js";
 
+// Component to handle creating a group (Displays a modal)
 const CreateGroupModal = ({isOpen, onClose, userId}) => {
   const [groupName, setGroupName] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // Use global notifications
+  const notify = useNotification();
+
+  // Save new group and add creator
   const handleSave = async () => {
     console.log("Attempting to save group...");
     if (!groupName.trim()) {
-      alert('Please enter a group name.');
+      notify.warning({
+        message: 'Incomplete Information',
+        description: 'Please enter a group name.',
+        placement: 'bottomRight',
+      })
       return;
     }
 
@@ -29,7 +39,11 @@ const CreateGroupModal = ({isOpen, onClose, userId}) => {
       }
 
       if(existingGroup) {
-        alert('Group already exists');
+        notify.warning({
+          message: 'Group already exists',
+          description: 'Group already exists, please try again.',
+          placement: 'bottomRight',
+        })
         setLoading(false);
         return;
       }
@@ -45,7 +59,11 @@ const CreateGroupModal = ({isOpen, onClose, userId}) => {
 
       if (groupError) {
         console.error('Error creating group:', groupError.message);
-        alert('Failed to create the group. Please try again.');
+        notify.error({
+          message: 'Error creating group:',
+          description: 'Failed to create the group. Please try again.',
+          placement: 'bottomRight',
+        })
         setLoading(false);
         return;
       }
@@ -64,16 +82,28 @@ const CreateGroupModal = ({isOpen, onClose, userId}) => {
 
       if (memberError) {
         console.error('Error adding user to group:', memberError.message);
-        alert('Failed to add user to group. Please try again.');
+        notify.error({
+          message: 'Error adding user to group',
+          description: 'Failed to add user to group. Please try again.',
+          placement: 'bottomRight',
+        })
       } else {
-        alert('Group created and user added successfully.');
+        notify.success({
+          message: 'Group created successfully',
+          description: 'Group created and user added successfully.',
+          placement: 'bottomRight',
+        })
         setGroupName(''); // Reset form input
         onClose(); // Close modal
       }
 
     } catch (err) {
       console.error('Unexpected error creating group:', err.message);
-      alert('An unexpected error occurred. Please try again.');
+      notify.error({
+        message: 'Unexpected error creating group',
+        description: 'An unexpected error occurred. Please try again.',
+        placement: 'bottomRight',
+      })
     } finally {
       setLoading(false);
     }

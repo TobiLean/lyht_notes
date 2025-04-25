@@ -2,9 +2,11 @@ import {NavLink} from "react-router-dom";
 import {useEffect, useState} from "react";
 import supabaseClient from "../../utils/supabaseClient.js";
 
+// Component to render group list
 function GroupList({userId}) {
   const [groups, setGroups] = useState([]);
 
+  // Effect to get groups when userId is ready
   useEffect(() => {
     const getGroupList = async () => {
       try {

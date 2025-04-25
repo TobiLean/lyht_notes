@@ -1,21 +1,25 @@
 import {app, ipcMain, BrowserWindow} from 'electron';
 import path from 'path';
 import {isDev} from "./utils.js";
-import {pollResources} from "./resourceManager.js";
 import {getPrelodePath} from "./pathResolver.js";
 
+// Default constraints for macos
 const HEADER_HEIGHT = 30;
 const MACOS_TRAFFIC_LIGHTS_HEIGHT = 14;
 
+// Create app window for production
 const createWindow = (url) => {
 
   const win = new BrowserWindow({
     fullscreenable: false,
     maximizable: true,
     fullscreen: true,
+    minHeight: 667,
+    minWidth: 1300,
     webPreferences: {
       preload: getPrelodePath(),
     },
+    frame: false,
     titleBarStyle: 'hidden',
     titleBarOverlay: process.platform !== 'darwin' ? {height: HEADER_HEIGHT} : undefined,
     trafficLightPosition: {
@@ -47,14 +51,23 @@ app.whenReady().then(() => {
   const mainWindow = new BrowserWindow({
     fullscreenable: false,
     maximizable: true,
+    fullscreen: true,
+    minHeight: 667,
+    minWidth: 1300,
     webPreferences: {
       preload: getPrelodePath(),
     },
-    fullscreen: true,
     frame: false,
+    titleBarStyle: 'hidden',
+    titleBarOverlay: process.platform !== 'darwin' ? {height: HEADER_HEIGHT} : undefined,
+    trafficLightPosition: {
+      x: 20,
+      y: HEADER_HEIGHT / 2 - MACOS_TRAFFIC_LIGHTS_HEIGHT / 2,
+    },
     acceptFirstMouse: true,
   })
 
+  // Render if in dev mode
   if (isDev()) {
     mainWindow.loadURL('http://localhost:5123');
   } else {

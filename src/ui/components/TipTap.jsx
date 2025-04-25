@@ -102,6 +102,10 @@ function NoteEditor({saveStatus, setSaveStatus}) {
             console.log('General tag already exits ', tag)
           }
 
+          // General tag exists
+          // console.log('General tag fetched successfully:', tag[0]);
+
+
           // Check for existing notes
           const {data, error} = await supabaseClient
             .from('notes')
@@ -209,7 +213,7 @@ function NoteEditor({saveStatus, setSaveStatus}) {
     }
   }, [noteId, navigate]);
 
-  // Dummy collaboration extensions so the array always contains 2 collaboration elements.
+  // Define dummy collaboration extensions so that the array always contains 2 collaboration elements.
   const dummyCollaboration = useMemo(
     () =>
       Collaboration.configure({
@@ -253,7 +257,7 @@ function NoteEditor({saveStatus, setSaveStatus}) {
       }
     })
 
-    // Attach awareness to provider
+    // Attach awareness to provider if needed
     if (collab.provider && !collab.provider.awareness) {
       collab.provider.awareness = awareness;
     }
@@ -326,20 +330,20 @@ function NoteEditor({saveStatus, setSaveStatus}) {
     [allExtensions]
   );
 
-  // Effect to update editor properties
+  // Then add an effect to update editor properties
   useEffect(() => {
     if (!editor || !editorReady) return;
 
     editor.setEditable(editorReady);
     if (editorReady) {
-      // Focus on editor
+      // Focus if needed
       editor.commands.focus();
     }
   }, [editor, editorReady]);
 
   const triggerManualUpdate = () => {
     if (collab.ydoc) {
-
+      // For testing, you might want to append an XML element or change its content:
       const frag = collab.ydoc.getXmlFragment('document');
       frag.insert(0, ['New test content']);
     }

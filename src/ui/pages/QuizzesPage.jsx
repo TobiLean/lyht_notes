@@ -6,7 +6,6 @@ import './QuizzesPage.css'
 import supabaseClient from '../../utils/supabaseClient.js'
 import {useOutletContext} from "react-router-dom";
 import LinearProgress from "@mui/material/LinearProgress";
-import CreateNoteModal from "../components/CreateNoteModal.jsx";
 import CreateQuizModal from "../components/CreateQuizModal.jsx";
 
 const QuizzesPage = () => {
